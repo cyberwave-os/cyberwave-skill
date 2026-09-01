@@ -14,24 +14,23 @@ The core follows the open [Agent Skills](https://agentskills.io) format. Cyberwa
 
 ## Install
 
-### Canonical package (Claude Code or Codex)
+### Canonical public skill (Claude Code or Codex)
 
 ```bash
-git clone https://github.com/cyberwave-os/cyberwave-skills ~/.cyberwave/agent-skills
-python3 ~/.cyberwave/agent-skills/scripts/install_skills.py --client claude
-# or: --client codex
+git clone https://github.com/cyberwave-os/cyberwave-skill ~/.claude/skills/cyberwave
+# Codex: clone to ~/.codex/skills/cyberwave instead
 ```
 
 Use `/cyberwave` in Claude Code, `$cyberwave` in Codex, or describe a matching Cyberwave task and allow automatic discovery.
 
-### Singular compatibility mirror
+### From a monorepo or plugin-package checkout
 
 ```bash
-git clone https://github.com/cyberwave-os/cyberwave-skill ~/.claude/skills/cyberwave
-# or clone to ~/.codex/skills/cyberwave
+python3 cyberwave-clis/cyberwave-skills/scripts/install_skills.py --client claude
+# or: --client codex
 ```
 
-The compatibility mirror contains the same `skills/cyberwave` content but not the package-level installer/plugin wrapper.
+The installer links or copies the same canonical `skills/cyberwave` directory.
 
 ### Project-local or other Agent Skills clients
 
@@ -60,7 +59,7 @@ The maintained source of truth lives in the Cyberwave monorepo:
 cyberwave-clis/cyberwave-skills/skills/cyberwave/
 ```
 
-The production workflow `.github/workflows/claude-plugin-sync.yml` mirrors the full package to `cyberwave-os/cyberwave-skills` and this directory to the singular compatibility repository with `rsync --delete`. Public-mirror-only changes will therefore be overwritten. Changes to MCP tools, SDK/CLI interfaces, edge/runtime behavior, backend auth/control/workflows, documentation, or driver interfaces must include a Cyberwave skill impact review.
+The production workflow `.github/workflows/claude-plugin-sync.yml` mirrors this directory to the primary `cyberwave-os/cyberwave-skill` repository and the full package to the Claude plugin compatibility repository with `rsync --delete`. Public-mirror-only changes will therefore be overwritten. Changes to MCP tools, SDK/CLI interfaces, edge/runtime behavior, backend auth/control/workflows, documentation, or driver interfaces must include a Cyberwave skill impact review.
 
 Validate the package:
 

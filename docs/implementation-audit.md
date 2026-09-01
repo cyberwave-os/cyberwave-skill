@@ -19,7 +19,7 @@ This audit maps the requested outcome to authoritative repository evidence. It i
 | Claude, Codex, ChatGPT/API and other clients | portable `SKILL.md`, `agents/openai.yaml`, Claude plugin metadata, package installer and upload guidance | Implemented |
 | Detailed strategy before implementation | `docs/strategy.md` records architecture, safety, ownership, validation and rollout | Implemented |
 | Monorepo as source of truth | `cyberwave-clis/cyberwave-skills/`, `AGENTS.md`, PR checklist and drift-trigger workflow | Implemented |
-| Public distribution sync | `.github/workflows/claude-plugin-sync.yml` targets the plural repository plus plugin/singular compatibility mirrors | Ready; target repository must be created |
+| Public distribution sync | `.github/workflows/claude-plugin-sync.yml` targets the existing singular skill repository plus the plugin compatibility mirror | Implemented |
 | Local Claude installation | `~/.claude/skills/cyberwave` links to the canonical monorepo worktree skill | Verified locally |
 | GitHub skill worktree | singular compatibility worktree on `codex/agentic-skills-system`; canonical monorepo worktree on `codex/cyberwave-agentic-skills-source` | Implemented |
 
@@ -37,6 +37,6 @@ This audit maps the requested outcome to authoritative repository evidence. It i
 
 The standalone `skills/cyberwave/scripts/validate_skill.py --compare` check proves that the singular compatibility worktree is byte-identical to the canonical skill directory.
 
-## Remaining external release gate
+## Public repository decision
 
-As of 2026-09-01, GitHub reports that `cyberwave-os/cyberwave-skills` does not exist or is not visible to the configured organization credentials. The sync workflow detects this condition and warns/skips that matrix target so existing distributions continue to sync. Create the public repository before merging the documentation that makes the plural URL the primary installation path, then run the production sync and verify the resulting repository/PR.
+On 2026-09-01, the public distribution was consolidated on the existing `cyberwave-os/cyberwave-skill` repository to avoid maintaining singular and plural duplicates. The initial structural update is synchronized manually for review; subsequent production syncs use the monorepo-owned subtree. The plural repository is intentionally not a workflow target.

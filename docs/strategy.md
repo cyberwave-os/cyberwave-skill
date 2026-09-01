@@ -4,7 +4,7 @@
 
 Keep exactly one discoverable, cross-agent skill named `cyberwave`. Make its `SKILL.md` a concise orchestrator that establishes context, selects the safest execution plane, and routes to focused reference modules. CLI/edge operations and driver development are references and deterministic scripts of this skill, not separate skills. Multiple top-level skills would increase discovery noise, duplicate shared safety rules, and make installation inconsistent across clients.
 
-The Cyberwave monorepo directory `cyberwave-clis/cyberwave-skills/` is the maintained source of truth. The intended primary public mirror is `cyberwave-os/cyberwave-skills`; singular skill and Claude plugin repositories are generated compatibility distributions. Changes to MCP tools, SDK or CLI interfaces, user documentation, edge behavior, authentication, or robot-control semantics must include a skill impact review and, when relevant, a skill update before distribution sync runs.
+The Cyberwave monorepo directory `cyberwave-clis/cyberwave-skills/` is the maintained source of truth. Its one skill is published through the existing `cyberwave-os/cyberwave-skill` repository; the Claude plugin repository is a generated compatibility distribution. Changes to MCP tools, SDK or CLI interfaces, user documentation, edge behavior, authentication, or robot-control semantics must include a skill impact review and, when relevant, a skill update before distribution sync runs.
 
 ## Outcomes
 
@@ -162,8 +162,8 @@ Skills never grant tool permissions. Client and platform approval systems remain
 ### Source of truth
 
 - Maintained source: `cyberwave-clis/cyberwave-skills/`
-- Primary public distribution: `github.com/cyberwave-os/cyberwave-skills`
-- Compatibility distributions: `github.com/cyberwave-os/cyberwave-skill` and `github.com/cyberwave-os/cyberwave-plugin`
+- Primary public distribution: `github.com/cyberwave-os/cyberwave-skill`
+- Compatibility distribution: `github.com/cyberwave-os/cyberwave-plugin`
 - Sync workflow: `.github/workflows/claude-plugin-sync.yml`
 
 The production workflow uses `rsync --delete`, so public-mirror-only edits will eventually be erased. Development can use an isolated public-repository worktree for review, but accepted changes must land in the monorepo source and be validated before sync.
@@ -218,13 +218,13 @@ Tests should assert observable decisions and safety properties, not exact prose.
 4. Add cross-agent metadata and a single-skill installer.
 5. Add deterministic MCP, CLI, scaffold, and packaging validation.
 6. Move the canonical package into an isolated monorepo worktree, update CI/change triggers, and rerun validation.
-7. Review the diff and record the source branch plus the missing-public-repository creation handoff.
+7. Review the diff, manually synchronize the initial large change to the existing public skill repository, and record both PRs.
 
 ## Rollout and versioning
 
 - Land the monorepo source change first.
-- Create `cyberwave-os/cyberwave-skills`, then let the production sync populate it. Do not make the public repository the authoring source.
-- Keep the singular `cyberwave-skill` and Claude plugin mirrors during migration; deprecate the standalone driver skill because its resources now live inside `cyberwave`.
+- Manually synchronize the initial structural change to `cyberwave-os/cyberwave-skill`, then use the production workflow for subsequent updates. Do not make the public repository the authoring source.
+- Keep the Claude plugin compatibility distribution during migration; deprecate the plural and standalone driver repositories because their content now lives in the singular `cyberwave` skill.
 - Use semantic metadata or release tags for skill bundles when the target client supports immutable versions.
 - Roll back by reverting the monorepo source and allowing the sync workflow to restore the public mirror.
 - Treat skill behavior changes that alter live-control authorization, credential handling, or destructive-action policy as high-risk changes requiring explicit review.

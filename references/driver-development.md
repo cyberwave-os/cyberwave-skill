@@ -16,6 +16,19 @@ Reuse supplied context and ask only for missing facts that affect the implementa
 
 Search existing Cyberwave drivers and catalog assets first. Extend an existing driver when its hardware protocol and interface are compatible.
 
+## Open-source reference drivers
+
+Use these maintained public repositories as subsystem examples before designing a new integration:
+
+| Repository | Reuse it for |
+| --- | --- |
+| [`cyberwave-edge-camera-driver`](https://github.com/cyberwave-os/cyberwave-edge-camera-driver) | USB/V4L2, IP/RTSP, and RealSense capture; WebRTC streaming; device passthrough; edge-injected configuration; frame/depth channels and Zenoh-aware video pipelines. |
+| [`cyberwave-edge-camera-depth-estimation-driver`](https://github.com/cyberwave-os/cyberwave-edge-camera-depth-estimation-driver) | Combining a camera driver with local ML inference, configurable model backends, depth-map encoding, checkpoint handling, and CPU/CUDA deployment choices. |
+| [`cyberwave-edge-so101`](https://github.com/cyberwave-os/cyberwave-edge-so101) | Serial servo hardware, discovery and calibration, leader/follower teleoperation, remote operation, child cameras, device-health reporting, reconnect safety, and hardware-specific CLI utilities. |
+| [`ugv-beast-driver`](https://github.com/cyberwave-os/ugv-beast-driver) | ROS 2-to-Cyberwave bridging, mapping-driven robot integration, bounded velocity/deadman/e-stop behavior, multi-robot namespacing, odometry/IMU telemetry, navigation, and video in one edge deployment. |
+
+Choose the closest example by hardware and transport, then copy only the relevant adapter, configuration, packaging, and test patterns. Treat these repositories as reference implementations, not as the current framework contract: re-check their default branch and dependencies before reuse. If an example does not use the current `BaseDriver` API, start from this skill's scaffold and port the proven hardware/protocol logic into `hardware.py` and lifecycle hooks. The current SDK, embedded template, asset capabilities, and transport rules override older MQTT topics, environment variables, or lifecycle patterns found in an example.
+
 ## Scaffold
 
 Resolve `scripts/scaffold_driver.py` relative to the parent Cyberwave skill directory, then run it from the directory that should contain the new project:
