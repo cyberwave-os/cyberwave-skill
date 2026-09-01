@@ -24,10 +24,16 @@ Use these maintained public repositories as subsystem examples before designing 
 | --- | --- |
 | [`cyberwave-edge-camera-driver`](https://github.com/cyberwave-os/cyberwave-edge-camera-driver) | USB/V4L2, IP/RTSP, and RealSense capture; WebRTC streaming; device passthrough; edge-injected configuration; frame/depth channels and Zenoh-aware video pipelines. |
 | [`cyberwave-edge-camera-depth-estimation-driver`](https://github.com/cyberwave-os/cyberwave-edge-camera-depth-estimation-driver) | Combining a camera driver with local ML inference, configurable model backends, depth-map encoding, checkpoint handling, and CPU/CUDA deployment choices. |
-| [`cyberwave-edge-so101`](https://github.com/cyberwave-os/cyberwave-edge-so101) | Serial servo hardware, discovery and calibration, leader/follower teleoperation, remote operation, child cameras, device-health reporting, reconnect safety, and hardware-specific CLI utilities. |
+| [`cyberwave-edge-so101`](https://github.com/cyberwave-os/cyberwave-edge-so101) | A complete robotic-arm example: serial servos, discovery and calibration, leader/follower teleoperation, remote operation, child cameras, device-health reporting, reconnect safety, and hardware-specific CLI utilities. |
 | [`ugv-beast-driver`](https://github.com/cyberwave-os/ugv-beast-driver) | ROS 2-to-Cyberwave bridging, mapping-driven robot integration, bounded velocity/deadman/e-stop behavior, multi-robot namespacing, odometry/IMU telemetry, navigation, and video in one edge deployment. |
+| [`deepak61296/cyberwave-edge-mavlink-driver`](https://github.com/deepak61296/cyberwave-edge-mavlink-driver) | Community, non-official drone example for MAVLink/ArduPilot/PX4, SITL-first testing, flight-mode/acknowledgement handling, command queues, velocity streaming, source-type filtering, and dead-man braking. Review its license and safety status before reuse. |
 
 Choose the closest example by hardware and transport, then copy only the relevant adapter, configuration, packaging, and test patterns. Treat these repositories as reference implementations, not as the current framework contract: re-check their default branch and dependencies before reuse. If an example does not use the current `BaseDriver` API, start from this skill's scaffold and port the proven hardware/protocol logic into `hardware.py` and lifecycle hooks. The current SDK, embedded template, asset capabilities, and transport rules override older MQTT topics, environment variables, or lifecycle patterns found in an example.
+
+For additional platform-contract examples rather than driver scaffolds:
+
+- Piper users can consult the public [AgileX Piper quickstart](https://github.com/cyberwave-os/docs-mintlify/blob/main/tutorials/agilex-piper-quickstart.mdx) and [Piper workflow tutorial](https://github.com/cyberwave-os/docs-mintlify/blob/main/tutorials/agilex-piper-workflows.mdx). The Piper driver itself is not currently published as a standalone open-source repository, so do not present private monorepo paths as customer-accessible templates.
+- Drone integrations can compare the public SDK's [DJI Mini example](https://github.com/cyberwave-os/cyberwave-python/blob/main/examples/drone_dji_mini.py), [hovering example](https://github.com/cyberwave-os/cyberwave-python/blob/main/examples/drone_hovering.py), and [flight capability implementation](https://github.com/cyberwave-os/cyberwave-python/blob/main/cyberwave/twin/capabilities/flight.py) to preserve the current command contract. These are client/control examples, not edge-driver templates.
 
 ## Scaffold
 
