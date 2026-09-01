@@ -23,15 +23,6 @@ git clone https://github.com/cyberwave-os/cyberwave-skill ~/.claude/skills/cyber
 
 Use `/cyberwave` in Claude Code, `$cyberwave` in Codex, or describe a matching Cyberwave task and allow automatic discovery.
 
-### From a monorepo or plugin-package checkout
-
-```bash
-python3 cyberwave-clis/cyberwave-skills/scripts/install_skills.py --client claude
-# or: --client codex
-```
-
-The installer links or copies the same canonical `skills/cyberwave` directory.
-
 ### Project-local or other Agent Skills clients
 
 Clone/copy the repository as a directory named `cyberwave` beneath the client's project or user Agent Skills search path. The required entrypoint is `SKILL.md`; provider-specific metadata is additive.
@@ -48,38 +39,18 @@ The skill discovers the tools actually exposed by the current client. MCP is opt
 
 `SKILL.md` is a compact orchestrator. It loads only the relevant module from `references/` for the current task. This keeps the discovery and activation context small while retaining detailed domain procedures.
 
-See [the strategy](docs/strategy.md) for the routing model, safety/authorization policy, cross-agent support, validation matrix, and rollout plan.
-See [the implementation audit](docs/implementation-audit.md) for requirement-level release evidence and the remaining public-repository gate.
+## Validate
 
-## Development and ownership
-
-The maintained source of truth lives in the Cyberwave monorepo:
-
-```text
-cyberwave-clis/cyberwave-skills/skills/cyberwave/
-```
-
-The production workflow `.github/workflows/claude-plugin-sync.yml` mirrors this directory to the primary `cyberwave-os/cyberwave-skill` repository and the full package to the Claude plugin compatibility repository with `rsync --delete`. Public-mirror-only changes will therefore be overwritten. Changes to MCP tools, SDK/CLI interfaces, edge/runtime behavior, backend auth/control/workflows, documentation, or driver interfaces must include a Cyberwave skill impact review.
-
-Validate the package:
+Run the portable validation before opening a pull request:
 
 ```bash
 python3 scripts/validate_skill.py
 ```
 
-From a monorepo checkout, also validate every referenced MCP tool:
+To compare two skill checkouts before distribution:
 
 ```bash
-python3 ../../scripts/validate_skills.py \
-  --mcp-source ../../../cyberwave-mcp-server/cyberwave_mcp_server \
-  --cli-source ../../../cyberwave-python-cli/cyberwave_cli \
-  --sdk-source ../../../../cyberwave-sdks/cyberwave-python
-```
-
-Before distribution, compare the monorepo source with a standalone checkout:
-
-```bash
-python3 scripts/validate_skill.py --compare /path/to/other/cyberwave-skill
+python3 scripts/validate_skill.py --compare /path/to/cyberwave-skill
 ```
 
 The evaluator scenarios in `evals/scenarios.json` define the expected routing and safety decisions for realistic user requests. Tests should assert those decisions and observable effects rather than exact prose.

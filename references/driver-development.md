@@ -32,7 +32,7 @@ Choose the closest example by hardware and transport, then copy only the relevan
 
 For additional platform-contract examples rather than driver scaffolds:
 
-- Piper users can consult the public [AgileX Piper quickstart](https://github.com/cyberwave-os/docs-mintlify/blob/main/tutorials/agilex-piper-quickstart.mdx) and [Piper workflow tutorial](https://github.com/cyberwave-os/docs-mintlify/blob/main/tutorials/agilex-piper-workflows.mdx). The Piper driver itself is not currently published as a standalone open-source repository, so do not present private monorepo paths as customer-accessible templates.
+- Piper users can consult the public [AgileX Piper quickstart](https://docs.cyberwave.com/tutorials/agilex-piper-quickstart) and [Piper workflow tutorial](https://docs.cyberwave.com/tutorials/agilex-piper-workflows). The Piper driver itself is not currently published as a standalone open-source repository, so do not present unpublished source as a customer-accessible template.
 - Drone integrations can compare the public SDK's [DJI Mini example](https://github.com/cyberwave-os/cyberwave-python/blob/main/examples/drone_dji_mini.py), [hovering example](https://github.com/cyberwave-os/cyberwave-python/blob/main/examples/drone_hovering.py), and [flight capability implementation](https://github.com/cyberwave-os/cyberwave-python/blob/main/cyberwave/twin/capabilities/flight.py) to preserve the current command contract. These are client/control examples, not edge-driver templates.
 
 ## Scaffold
@@ -137,7 +137,7 @@ For publishers, declare a typed `TopicSpec` and `PublisherArgs(rate_hz=...)`. Us
 - Dual transport is inferred from `enable_mqtt=True` plus `enable_zenoh=True`.
 - Use `CYBERWAVE_PUBLISH_MODE=mqtt_only` only as an operator override to disable Zenoh publishing.
 
-Follow the current `cyberwave-sdks/cyberwave-python/examples/fake_imu_driver.py` pattern when the monorepo is available. Do not use obsolete `MqttTopicSpec.also_use_zenoh` examples if the installed SDK exposes unified `TopicSpec` fields instead.
+Follow the public SDK's [fake IMU driver example](https://github.com/cyberwave-os/cyberwave-python/blob/main/examples/fake_imu_driver.py). Do not use obsolete `MqttTopicSpec.also_use_zenoh` examples if the installed SDK exposes unified `TopicSpec` fields instead.
 
 ## Runtime configuration and identity
 

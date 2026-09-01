@@ -1,6 +1,6 @@
 {
   "schema_version": "1",
-  "source": "cyberwave-clis/cyberwave-mcp-server/cyberwave_mcp_server",
+  "source": "https://docs.cyberwave.com/sdks/mcp-server",
   "current": [
     "cw_add_twin_to_environment",
     "cw_analyze_environment_layout",

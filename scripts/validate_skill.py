@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
-"""Validate the portable Cyberwave skill and optional monorepo parity.
+"""Validate the portable Cyberwave skill and optional checkout parity.
 
-The script is intentionally standard-library only so it can run in the public
-distribution repository and in the Cyberwave monorepo sync job.
+The script is intentionally standard-library only so it can run in any skill
+checkout or distribution pipeline.
 """
 
 from __future__ import annotations
@@ -267,7 +267,7 @@ def main() -> int:
     parser.add_argument(
         "--mcp-source",
         type=Path,
-        help="Path to cyberwave_mcp_server, server.py, or equivalent monorepo source.",
+        help="Path to an MCP registration source file or directory.",
     )
     parser.add_argument("--compare", type=Path, help="Require byte-level parity with another skill directory.")
     parser.add_argument("--json", action="store_true", dest="json_output", help="Emit a JSON result.")

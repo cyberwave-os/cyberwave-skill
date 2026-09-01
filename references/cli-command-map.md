@@ -1,6 +1,6 @@
 # Verified CLI command map
 
-This map summarizes the maintained command groups in `cyberwave_cli`. Treat it as routing guidance, then inspect the installed command's `--help` because deployed versions can lag the monorepo.
+This map summarizes the maintained command groups in the Cyberwave CLI. Treat it as routing guidance, then inspect the installed command's `--help` because installed versions can lag current documentation.
 
 ## Identity and configuration
 

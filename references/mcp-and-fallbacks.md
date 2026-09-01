@@ -19,7 +19,7 @@ Read this for every Cyberwave task before choosing an execution plane. MCP is th
 | Write or modify a driver repository | Local files + SDK | Use [driver development](driver-development.md) and `scripts/scaffold_driver.py`; MCP may create the test asset/twin but does not write the hardware implementation. |
 | Build/test a driver image | Host shell/Docker | Requires repository and device/runtime access. MCP can verify resulting cloud telemetry later. |
 | Low-level MQTT/Zenoh integration | SDK/driver code | Only when required; use declared interfaces, not ad hoc topics. |
-| Search exact current behavior | `cw_search_docs`, monorepo source, official docs | Tool/source verification precedes examples when interfaces can drift. |
+| Search exact current behavior | `cw_search_docs`, installed package source, official docs | Tool/source verification precedes examples when interfaces can drift. |
 
 One task can cross planes. For example: MCP creates a development environment and twin; the local scaffold creates a driver; the CLI pairs an edge host; MCP then verifies telemetry. Preserve resource identifiers across those handoffs.
 
