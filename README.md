@@ -1,41 +1,60 @@
-# Cyberwave Skill
+# Cyberwave Agent Skill
 
-A [Claude Code](https://claude.ai/claude-code) skill that guides you through building a Physical AI application on [Cyberwave](https://cyberwave.com) — controlling robots, reading sensors, managing digital twins, and streaming video.
+A portable Agent Skill for building and operating Physical AI systems on [Cyberwave](https://cyberwave.com). One `cyberwave` entrypoint routes agents to focused guidance for:
 
-## What it does
+- registration, authentication, and Cyberwave MCP connection
+- environment creation and editing
+- workflow authoring and run management
+- safe robot control in simulation and live mode
+- edge pairing, drivers, workers, and MQTT/Zenoh configuration
+- asset onboarding and driver development
+- robot telemetry, camera, workflow, and edge monitoring
 
-When invoked, the skill asks which interface you want to use:
+The core follows the open [Agent Skills](https://agentskills.io) format. Cyberwave MCP is the preferred typed execution plane when available, but the skill degrades to the verified SDK, CLI, dashboard, or official documentation.
 
-- **Python SDK** (recommended) — full walkthrough: installation, authentication, twin connection, joint control, camera capture, video streaming, workflows, and alerts
-- **C++ SDK** — coming soon; redirects you to Python SDK or raw APIs in the meantime
-- **APIs directly** — guides you through the REST API (HTTPS, Bearer token) and MQTT API (real-time joint control, telemetry, WebRTC signalling) so you can build in any language
+## Install
 
-## Installation
+### Canonical public skill (Claude Code or Codex)
 
 ```bash
-# Global (available in all projects)
 git clone https://github.com/cyberwave-os/cyberwave-skill ~/.claude/skills/cyberwave
-
-# Or project-local
-git clone https://github.com/cyberwave-os/cyberwave-skill .claude/skills/cyberwave
+# Codex: clone to ~/.codex/skills/cyberwave instead
 ```
 
-## Usage
+Use `/cyberwave` in Claude Code, `$cyberwave` in Codex, or describe a matching Cyberwave task and allow automatic discovery.
 
-In any Claude Code session, run:
+### Project-local or other Agent Skills clients
 
+Clone/copy the repository as a directory named `cyberwave` beneath the client's project or user Agent Skills search path. The required entrypoint is `SKILL.md`; provider-specific metadata is additive.
+
+For ChatGPT or API runtimes that accept uploaded skill bundles, upload the same directory/ZIP and promote an immutable tested version. Keep MCP credentials in runtime configuration, not the bundle.
+
+## Cyberwave MCP
+
+Hosted endpoint: `https://mcp.cyberwave.com/mcp` (Streamable HTTP). It uses a user-scoped Cyberwave API key in the `Authorization: Bearer ...` header. Configure the key with the client's secret mechanism; never commit it.
+
+The skill discovers the tools actually exposed by the current client. MCP is optional for guidance and code authoring, but live platform execution and verification require an authenticated execution plane.
+
+## Architecture
+
+`SKILL.md` is a compact orchestrator. It loads only the relevant module from `references/` for the current task. This keeps the discovery and activation context small while retaining detailed domain procedures.
+
+## Validate
+
+Run the portable validation before opening a pull request:
+
+```bash
+python3 scripts/validate_skill.py
 ```
-/cyberwave
+
+To compare two skill checkouts before distribution:
+
+```bash
+python3 scripts/validate_skill.py --compare /path/to/cyberwave-skill
 ```
 
-Describe what you want to build and Claude will guide you through the right interface, set up your environment, and help you implement the application loop.
-
-## Requirements
-
-- [Claude Code](https://claude.ai/claude-code)
-- A Cyberwave account — [sign up](https://cyberwave.com)
-- Python 3.10+ and FFMPEG (for the Python SDK path)
+The evaluator scenarios in `evals/scenarios.json` define the expected routing and safety decisions for realistic user requests. Tests should assert those decisions and observable effects rather than exact prose.
 
 ## License
 
-Apache 2.0
+Apache-2.0.
