@@ -137,7 +137,7 @@ For publishers, declare a typed `TopicSpec` and `PublisherArgs(rate_hz=...)`. Us
 - Dual transport is inferred from `enable_mqtt=True` plus `enable_zenoh=True`.
 - Use `CYBERWAVE_PUBLISH_MODE=mqtt_only` only as an operator override to disable Zenoh publishing.
 
-Follow the public SDK's [fake IMU driver example](https://github.com/cyberwave-os/cyberwave-python/blob/main/examples/fake_imu_driver.py). Do not use obsolete `MqttTopicSpec.also_use_zenoh` examples if the installed SDK exposes unified `TopicSpec` fields instead.
+Follow the public SDK's [fake IMU driver example](https://github.com/cyberwave-os/cyberwave-python/blob/main/examples/fake_imu_driver.py). Declare MQTT and Zenoh transport settings together with the unified `TopicSpec` fields.
 
 ## Runtime configuration and identity
 

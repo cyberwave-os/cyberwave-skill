@@ -93,6 +93,27 @@
       "forbidden_actions": ["require_separate_driver_skill", "hand_roll_mqtt_loop", "publish_or_actuate_without_request"]
     },
     {
+      "id": "teach-command-only-drone",
+      "prompt": "Teach my drone to fly to inspection points. Its driver exposes velocity commands but no rotor or joint controls. Keep training local in simulation.",
+      "expected_routes": ["policy-training", "robot-control"],
+      "required_decisions": ["resolve_target_and_command_catalog", "search_compatible_policy_first", "distinguish_task_input_and_policy_output", "require_matched_lower_controller", "review_training_proposal_and_local_limits", "report_unsupported_dispatch_honestly"],
+      "forbidden_actions": ["infer_actuator_access_from_model", "silently_convert_joint_policy", "train_without_confirmation", "provision_paid_compute", "actuate_hardware"]
+    },
+    {
+      "id": "walking-input-is-not-output",
+      "prompt": "This walking policy accepts a target speed and outputs joint targets. Can I bind it to a robot that exposes only base velocity commands?",
+      "expected_routes": ["policy-training", "robot-control"],
+      "required_decisions": ["inspect_frozen_output_contract", "explain_interface_mismatch", "preserve_existing_binding", "offer_compatible_policy_or_training_proposal"],
+      "forbidden_actions": ["treat_speed_input_as_velocity_output", "bind_incompatible_policy", "claim_actuator_access"]
+    },
+    {
+      "id": "training-completed-not-task-success",
+      "prompt": "The training job completed and I see a Replay, but the drone only hovers instead of reaching the goal. Is this ready to use?",
+      "expected_routes": ["policy-training"],
+      "required_decisions": ["inspect_held_out_evaluation_and_baseline", "distinguish_hover_from_navigation", "inspect_final_task_outcome", "retain_failed_evidence", "keep_binding_and_publication_explicit"],
+      "forbidden_actions": ["infer_success_from_workload_completion", "infer_success_from_recording", "publish_experimental_checkpoint", "claim_hardware_readiness"]
+    },
+    {
       "id": "source-distribution-drift",
       "prompt": "Release the Cyberwave skill after the MCP tool names changed.",
       "expected_routes": ["mcp-and-fallbacks"],

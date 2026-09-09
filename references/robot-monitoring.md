@@ -32,10 +32,18 @@ Distinguish a missing/stale observation from a valid zero/empty reading.
 - Set an explicit small count and interval for bursts.
 - Identify the sensor when multiple cameras exist; never silently choose the first for a safety decision.
 - Report capture timestamp/freshness and mock/simulation status.
+- Simulation-viewer **video fps** counts received/decoded video frames, which may repeat a previous render. Do not interpret it as fresh sensor FPS or evidence of real-time policy observations; verify capture generations/timestamps and simulator cadence separately.
 - Do not embed large Base64 payloads in narrative output; use the client's image/attachment support.
 - Do not save, upload, or retain frames beyond the requested task without explicit scope.
 
 MCP exposes bounded latest-frame capture, not an indefinite viewer. For a user-facing WebRTC stream, use the dashboard or verified SDK/edge streaming flow. If implementing streaming code, verify the current SDK camera extras, FFMPEG requirement, signaling, cleanup, and sensor identity from official docs/source.
+
+For asynchronous `VirtualCameraStreamer` providers, return a cached
+`CapturedVideoFrame` with the image's acquisition clocks and an increasing
+acquisition ID. Do not refresh its timestamp on each send: repeating an image
+is not a new observation. `None` produces a placeholder without a capture
+timestamp. Source timing alone does not prove stored-video/Replay alignment;
+verify that separately before reporting synchronized evidence.
 
 ## Bounded monitoring
 
