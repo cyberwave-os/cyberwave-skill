@@ -24,6 +24,7 @@ REQUIRED_ROUTES = {
     "environment-management",
     "workflow-authoring",
     "robot-control",
+    "policy-training",
     "edge-configuration",
     "cli-command-map",
     "asset-and-driver-development",

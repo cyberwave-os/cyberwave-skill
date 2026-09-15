@@ -30,6 +30,13 @@ For live/edge workflows, confirm the target environment/twin and that edge requi
 
 Preview drafts do not have a real UUID. Do not pass placeholders to field-edit tools.
 
+If creation returns a real `workflow.uuid` with `needs_setup`, keep that workflow.
+Complete missing node fields with a targeted `cw_edit_workflow_from_prompt` edit,
+using the returned node identifiers and preserving the existing graph. Do not
+repeat creation to resolve setup. Only retry creation after authorized environment
+setup when no workflow UUID was saved. If node editing is unavailable, explain the
+remaining setup instead of creating a replacement.
+
 ### Edit an existing workflow
 
 - Use `cw_update_workflow_fields` for name, description, activation, visibility, or metadata.
@@ -47,7 +54,19 @@ Preview drafts do not have a real UUID. Do not pass placeholders to field-edit t
 5. Monitor with `cw_get_workflow_run` or bounded `cw_list_workflow_runs` checks until a terminal state or the user's requested observation window ends.
 6. On failure, report the failing node/error and relevant inputs without secrets.
 
+Simulation runtime failures, including startup failures, appear in the environment's Simulate view. Check that view and the recorded run error when diagnosing a simulated workflow.
+
 Do not repeatedly trigger a workflow because status is slow or unknown. Verify the existing run first.
+
+The central **Process** view (below the scene in Live and Simulation) and
+`cw_get_workflow_run` use the same
+recorded activation progress. Report the run status and named active steps, not
+an invented percentage or physical-success claim. The bounded history preserves
+parallel and repeated activations; `truncated=true` means some activity is omitted.
+Names reflect the current workflow definition, not a frozen historical plan.
+Opening Process only reads status; it never starts, resumes, or cancels a run.
+It works in Monitor mode and is hidden in Edit and Replay, leaving the right
+panel available for the agent.
 
 ## Cancel
 
