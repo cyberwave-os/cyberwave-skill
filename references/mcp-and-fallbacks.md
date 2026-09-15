@@ -107,7 +107,7 @@ Do not automate interactive login with a password argument. Let the user type se
 - Zenoh is the edge-colocated `DataBus` path on the same host as workers. It is opt-in per publisher/listener through declared driver topic metadata.
 - Dual transport is declared by the driver interface; do not invent a process-wide backend switch. `CYBERWAVE_PUBLISH_MODE=mqtt_only` disables Zenoh publishing where supported.
 
-Verify current topic specifications before publishing raw messages. Prefer the SDK or driver `TopicSpec`/`ZenohTopicSpec` abstractions.
+Verify current topic specifications before publishing raw messages. Prefer the SDK's unified driver `TopicSpec` abstraction, declaring `enable_mqtt` / `enable_zenoh` / `zenoh_channel` on the same spec.
 
 ## MCP absent
 

@@ -1,6 +1,6 @@
 ---
 name: cyberwave
-description: Build and operate Physical AI systems on Cyberwave. Use for account onboarding, environment creation or editing, workflow authoring, robot control in simulation or live mode, edge setup, asset or driver onboarding, telemetry, camera monitoring, or Cyberwave SDK/CLI/MCP integration.
+description: Build and operate Physical AI systems on Cyberwave. Use for account onboarding, environment creation or editing, workflow authoring, teaching or evaluating robot policies, robot control in simulation or live mode, edge setup, asset or driver onboarding, telemetry, camera monitoring, or Cyberwave SDK/CLI/MCP integration.
 license: Apache-2.0
 metadata:
   author: "cyberwave-os"
@@ -30,6 +30,7 @@ Help the user reach a verified Cyberwave outcome. Use Cyberwave MCP tools when t
 | Create or edit a scene/environment, catalog twin, primitive, area, waypoint, or transform | [Environment management](references/environment-management.md) |
 | Create, clone, edit, trigger, cancel, or inspect a workflow | [Workflow authoring](references/workflow-authoring.md) |
 | Move, navigate, stop, pose, or set joints in simulation or on a physical robot | [Robot control](references/robot-control.md) |
+| Teach, train, retrain, evaluate, bind or review a learned skill, policy or Replay | [Policy training and evidence](references/policy-training.md) |
 | Install/use the CLI, pair an edge host, manage services/containers, configure media, diagnose host health | [Edge configuration](references/edge-configuration.md) and [verified CLI map](references/cli-command-map.md) |
 | Add a catalog asset, upload URDF, or define capabilities | [Asset and driver development](references/asset-and-driver-development.md) |
 | Create or update a hardware driver, manifest, transport, container, or dev twin | [Driver development](references/driver-development.md) |
@@ -65,6 +66,7 @@ Finish with evidence appropriate to the task:
 - Environment: refreshed context plus rendered or quantitative layout feedback.
 - Workflow: saved workflow UUID, inspected graph/fields, and run state if triggered.
 - Robot control: target, mode, planned action, dispatch result, and observed/returned state.
+- Learned skill: proposal/attempt and checkpoint identifiers, evaluation versus baseline, binding state, and measured deployment/Replay evidence. Training completion is not task success.
 - Edge: installed/configured service state, resolved environment/twins, and driver/container health.
 - Asset/driver: asset identifier, capabilities status, validation/build/test results, and registration status.
 - Monitoring: signal source, observation window or frame count, freshness, and any uncertainty.
